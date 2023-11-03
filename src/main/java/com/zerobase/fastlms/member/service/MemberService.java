@@ -12,7 +12,8 @@ import java.util.List;
 public interface MemberService extends UserDetailsService {
     
     boolean register(MemberInput parameter);
-    
+    boolean login(String userAgent, String ipAddress, String username);
+
     /**
      * uuid에 해당하는 계정을 활성화 함.
      */

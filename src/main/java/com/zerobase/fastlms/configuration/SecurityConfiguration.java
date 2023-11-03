@@ -5,14 +5,22 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 @RequiredArgsConstructor
 @EnableWebSecurity
@@ -59,6 +67,19 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         http.formLogin()
                 .loginPage("/member/login")
+                .successHandler(
+                        new AuthenticationSuccessHandler() {
+                            @Override
+                            public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException, IOException {
+                                String username = authentication.getName();
+                                String userAgent = request.getHeader("user-agent");
+                                String ipAddress = request.getRemoteAddr();
+
+                                memberService.login(userAgent, ipAddress, username);
+                                response.sendRedirect("/"); // 인증이 성공한 후에는 root로 이동
+                            }
+                        }
+                )
                 .failureHandler(getFailureHandler())
                 .permitAll();
 

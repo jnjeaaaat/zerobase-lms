@@ -8,13 +8,10 @@ import com.zerobase.fastlms.course.service.TakeCourseService;
 import com.zerobase.fastlms.member.model.MemberInput;
 import com.zerobase.fastlms.member.model.ResetPasswordInput;
 import com.zerobase.fastlms.member.service.MemberService;
-import com.zerobase.fastlms.util.PasswordUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
@@ -29,7 +26,7 @@ public class MemberController {
     
     @RequestMapping("/member/login")
     public String login() {
-        
+
         return "member/login";
     }
     
@@ -57,7 +54,7 @@ public class MemberController {
     @PostMapping("/member/register")
     public String registerSubmit(Model model, HttpServletRequest request
             , MemberInput parameter) {
-        
+
         boolean result = memberService.register(parameter);
         model.addAttribute("result", result);
         
