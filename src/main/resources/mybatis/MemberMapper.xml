@@ -47,4 +47,14 @@
         limit #{pageStart}, #{pageEnd}
     </select>
 
+    <select id="selectListJoinHistory" resultType="com.zerobase.fastlms.admin.dto.MemberDto">
+        select l.username, max(login_dt) recent, m.*
+        from login_history l
+        join member m on m.user_id = l.username
+        group by l.username
+        <include refid="selectListWhere"/>
+
+        limit #{pageStart}, #{pageEnd}
+    </select>
+
 </mapper>

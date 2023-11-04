@@ -37,12 +37,13 @@ import java.util.*;
 public class MemberServiceImpl implements MemberService {
 
     private final MemberRepository memberRepository;
+    private final LoginHistoryRepository loginHistoryRepository;
+
     private final MailComponents mailComponents;
 
     private final MemberMapper memberMapper;
     private final LoginHistoryMapper loginHistoryMapper;
 
-    private final LoginHistoryRepository loginHistoryRepository;
 
     /**
      * 회원 가입
@@ -156,7 +157,7 @@ public class MemberServiceImpl implements MemberService {
 
         long totalCount = memberMapper.selectListCount(parameter);
 
-        List<MemberDto> list = memberMapper.selectList(parameter);
+        List<MemberDto> list = memberMapper.selectListJoinHistory(parameter);
         if (!CollectionUtils.isEmpty(list)) {
             int i = 0;
             for (MemberDto x : list) {
