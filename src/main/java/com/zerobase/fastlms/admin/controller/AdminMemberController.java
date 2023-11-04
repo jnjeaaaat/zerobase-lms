@@ -1,7 +1,9 @@
 package com.zerobase.fastlms.admin.controller;
 
 
+import com.zerobase.fastlms.admin.dto.LoginHistoryDto;
 import com.zerobase.fastlms.admin.dto.MemberDto;
+import com.zerobase.fastlms.admin.model.LoginHistoryParam;
 import com.zerobase.fastlms.admin.model.MemberParam;
 import com.zerobase.fastlms.admin.model.MemberInput;
 import com.zerobase.fastlms.course.controller.BaseController;
@@ -69,6 +71,27 @@ public class AdminMemberController extends BaseController {
         boolean result = memberService.updatePassword(parameter.getUserId(), parameter.getPassword());
         
         return "redirect:/admin/member/detail.do?userId=" + parameter.getUserId();
+    }
+
+    @GetMapping("/admin/member/login-history.do")
+    public String loginHistoryList(Model model, LoginHistoryParam parameter) {
+
+        parameter.init();
+
+        List<LoginHistoryDto> histories = memberService.loginHistoryList(parameter);
+
+        long totalCount = 0;
+        if (histories != null && histories.size() > 0) {
+            totalCount = histories.get(0).getTotalCount();
+        }
+        String queryString = parameter.getQueryString();
+        String pagerHtml = getPaperHtml(totalCount, parameter.getPageSize(), parameter.getPageIndex(), queryString);
+
+        model.addAttribute("list", histories);
+        model.addAttribute("totalCount", totalCount);
+        model.addAttribute("pager", pagerHtml);
+
+        return "admin/member/login-history";
     }
     
     

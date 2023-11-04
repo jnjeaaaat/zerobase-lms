@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>관리자 화면 </title>
+    <style>
+        .detail table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .detail table th, .detail table td {
+            border:solid 1px #000;
+        }
+
+    </style>
+</head>
+<body>
+    <div th:replace="/fragments/layout.html :: fragment-admin-body-menu"></div>
+    <h1>관리자 회원 관리 - 회원 상세 정보</h1>
+
+
+    <div class="detail" >
+
+        <table>
+            <thead>
+                <tr>
+                    <th>
+                        아이디(이메일)
+                    </th>
+                    <th>
+                        접속 IP
+                    </th>
+                    <th>
+                        유저 정보
+                    </th>
+                    <th>
+                        로그인 날짜
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="x : ${list}">
+                    <td>
+                        <a th:text="${x.username}">
+                            satcop@naver.com</a>
+                    </td>
+                    <td th:text="${x.ipAddress}">127.0.0.1</td>
+                    <td th:text="${x.userAgent}">xxx</td>
+
+                    <td>
+                        <p th:text="${x.loginDt}">2021.01.01</p>
+                    </td>
+
+                </tr>
+
+
+            </tbody>
+        </table>
+
+    </div>
+
+
+</body>
+</html>
