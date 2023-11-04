@@ -130,13 +130,16 @@
             <tbody id="dataLIst">
                 <tr th:each="x : ${list}">
                     <td>
-                        <input type="checkbox" th:value="${x.id}" />
+                        <input type="checkbox" th:value="${x.bannerId}" />
                     </td>
                     <td th:text="${x.seq}">1</td>
                     <td>
                         <p>
-                            <a th:href="'edit.do?id=' + ${x.id}" th:text="${x.subject}">강좌명</a>
+                            <a th:href="'edit.do?id=' + ${x.bannerId}" th:text="${x.altText}">배너명</a>
                         </p>
+                    </td>
+                    <td>
+                        <p th:text="${x.regDt}">2021.01.01</p>
                     </td>
                     <td>
                         <p th:text="${x.regDt}">2021.01.01</p>

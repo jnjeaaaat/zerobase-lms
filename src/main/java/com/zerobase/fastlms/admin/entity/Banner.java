@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.time.LocalDateTime;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -22,10 +23,14 @@ public class Banner {
     private Long id;
 
     private String filePath;
-    private String moveUrl;
+    private String linkUrl;
     private String altText;
 
     private Long priority;
     private boolean target;
     private boolean front;
+
+    private LocalDateTime regDt;
+    private LocalDateTime udtDt;
+
 }
