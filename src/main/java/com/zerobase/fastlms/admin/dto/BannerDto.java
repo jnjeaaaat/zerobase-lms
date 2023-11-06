@@ -16,16 +16,18 @@ public class BannerDto {
 
     Long id;
 
-    String filePath;
     String linkUrl;
     String altText;
 
     Long priority;
-    boolean target;
+    String target;
     boolean front;
 
     LocalDateTime regDt;
     LocalDateTime udtDt;
+
+    String filename;
+    String urlFilename;
 
     long totalCount;
     long seq;
@@ -34,12 +36,15 @@ public class BannerDto {
 
         return BannerDto.builder()
                 .id(banner.getId())
-                .filePath(banner.getFilePath())
+
                 .linkUrl(banner.getLinkUrl())
                 .altText(banner.getAltText())
                 .priority(banner.getPriority())
-                .target(banner.isTarget())
+                .target(banner.getTarget())
                 .front(banner.isFront())
+
+                .filename(banner.getFilename())
+                .urlFilename(banner.getUrlFilename())
 
                 .regDt(banner.getRegDt())
                 .udtDt(banner.getUdtDt())

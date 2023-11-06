@@ -130,16 +130,20 @@
             <tbody id="dataLIst">
                 <tr th:each="x : ${list}">
                     <td>
-                        <input type="checkbox" th:value="${x.bannerId}" />
+                        <input type="checkbox" th:value="${x.id}" />
                     </td>
                     <td th:text="${x.seq}">1</td>
                     <td>
                         <p>
-                            <a th:href="'edit.do?id=' + ${x.bannerId}" th:text="${x.altText}">배너명</a>
+                            <a th:href="'edit.do?id=' + ${x.id}" th:text="${x.altText}">배너명</a>
                         </p>
                     </td>
                     <td>
-                        <p th:text="${x.regDt}">2021.01.01</p>
+<!--                        <p th:text="${x.regDt}">2021.01.01</p>-->
+                        <a title="새창에서 링크 열림" th:target="${x.target}" th:href="${x.linkUrl}">
+                            <img th:src="@{${x.urlFilename}}" th:alt="${x.altText}">
+                        </a>
+
                     </td>
                     <td>
                         <p th:text="${x.regDt}">2021.01.01</p>

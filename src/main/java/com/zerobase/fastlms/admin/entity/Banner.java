@@ -22,15 +22,17 @@ public class Banner {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String filePath;
     private String linkUrl;
     private String altText;
 
     private Long priority;
-    private boolean target;
+    private String target;
     private boolean front;
 
     private LocalDateTime regDt;
     private LocalDateTime udtDt;
 
+
+    String filename;
+    String urlFilename;
 }
